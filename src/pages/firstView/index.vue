@@ -14,7 +14,7 @@
         <img src="/static/imgs/firstView/nvsheng.jpg" alt="">
       </swiper-item>
     </swiper>
-    <button class="btn" v-show="index===3">开始体验</button>
+    <button class="btn" v-show="index===3" @click="goListPage">开始体验</button>
 
   </div>
 </template>
@@ -23,13 +23,21 @@
   export default {
     data() {
       return {
+        // 滑动的下标
         index:0
       }
     },
     methods: {
+      // 滑动事件的监听
       handelChange (e){
         this.index = e.mp.detail.current
-      }
+      },
+      // 跳转至列表页面
+      goListPage (){
+        wx.switchTab({
+          url:"/pages/list/main"
+        })
+      },
     },
   }
 </script>
