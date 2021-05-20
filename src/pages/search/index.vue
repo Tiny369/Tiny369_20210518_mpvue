@@ -1,23 +1,54 @@
 <template>
   <div id="searchContainer">
     <div class="header">
-      <input v-model="searchContent" type="text" placeholder="书中自有黄金屋" placeholder-class="placeholder">
+      <input @confirm="handleConfirm" confirm-type="搜索" v-model="searchContent" type="text" placeholder="书中自有黄金屋" placeholder-class="placeholder">
       <span @click="clearContent" v-show="searchContent" class="clearContent">X</span>
     </div>
+    <BooksList :booksList="booksList" />
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import request from '../../utils/request'
+// 引入图书列表，复用组件
+import BooksList from '../booksList/index.vue'
   export default {
+    // 注册组件
+    components:{
+      BooksList
+    },
     data() {
       return {
         // 输入的内容
-        searchContent:''
+        searchContent:'',
+        // 定义初始数据
+        booksList:[]
       }
     },
     methods: {
+      // 清除输入内容事件
       clearContent (){
         this.searchContent = ''
+      },
+      // 点击搜索发送请求获取数据列表
+      async handleConfirm (){
+        // 1.手机用户输入的数据
+        let searchContent = this.searchContent
+        // 2.根据用户输入的内容发送请求获取对应的图书列表
+        /* wx.request({
+          // 完整路径
+          url: 'http://localhost:3699/searchBooks',
+          // 必须为req字段，并以对象形式传
+          data: { req:searchContent },
+          success:(res) => {
+            console.log(res.data);
+          },
+          fail:() => {
+            console.log('获取失败');
+          },
+        }) */
+        this.booksList = await request('/searchBooks',{ req:searchContent })
+        // console.log(result);
       },
     },
   }

@@ -17,7 +17,7 @@
     <div class="booksContainer">
      <div class="header">
         <span>全部商品</span>
-        <span class="more"> > </span>
+        <span class="more" @click="toBooksList"> > </span>
      </div>
      <ul class="booksList">
        <li class="booksItem" v-for="(books,index) in booksList" :key="index">
@@ -62,6 +62,14 @@ import booksList from './datas/data.json'
       newArr (){
         // 拆包不会影响原数组
         return [...this.booksList].splice(0,4)
+      },
+    },
+    methods: {
+      // 跳转至图书列表页面
+      toBooksList (){
+        wx.navigateTo({
+          url:'/pages/booksList/main?booksList= '+ JSON.stringify(this.booksList)
+        })
       },
     },
   }
