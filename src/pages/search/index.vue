@@ -4,7 +4,9 @@
       <input @confirm="handleConfirm" confirm-type="搜索" v-model="searchContent" type="text" placeholder="书中自有黄金屋" placeholder-class="placeholder">
       <span @click="clearContent" v-show="searchContent" class="clearContent">X</span>
     </div>
-    <BooksList :booksList="booksList" />
+    <div v-if="booksList.length">
+      <BooksList :booksList="booksList" />
+    </div>
   </div>
 </template>
 
