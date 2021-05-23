@@ -56,7 +56,7 @@ import BooksList from '../booksList/index.vue'
   }
 </script>
 
-<style lang="stylus" >
+<style lang="stylus" scoped>
   #searchContainer
     .header
       width 75%
@@ -67,7 +67,7 @@ import BooksList from '../booksList/index.vue'
       input
         width 100%
         height 100%
-       .placeholder 
+      /deep/.placeholder 
           color #1FB08D
           text-align center
           font-size 24rpx
